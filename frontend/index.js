@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    document.getElementById('search-bar').addEventListener('input',function(){
+        const searchTerm =this.value.toLowerCase();
+        const rows = document.querySelectorAll("#leaderboard-body tr");
+
+        rows.forEach(row => {
+            const nameCell =row.querySelector('td:nth-child(3)');
+            const nameText = nameCell.textContent.toLowerCase();
+            if (nameText.includes(searchTerm)) {
+                row.style.display = '';
+            }
+            else{
+                row.style.display = 'none';
+            }
+        });
+    });
+
     try {
         const response = await fetch("http://localhost:3001/data");
         const data = await response.json();
